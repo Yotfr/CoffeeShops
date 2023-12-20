@@ -67,6 +67,7 @@ dependencies {
     val hiltNavVersion = "1.1.0"
     val retrofitVersion = "2.9.0"
     val okHttpVersion = "4.12.0"
+    val dataStoreVersion = "1.0.0"
 
     // KTX
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$viewModelKTXVersion")
@@ -94,6 +95,9 @@ dependencies {
 
     // Activity
     implementation("androidx.activity:activity-compose:$activityComposeVersion")
+
+    // DataStore
+    implementation("androidx.datastore:datastore-preferences:$dataStoreVersion")
 
     // Compose
     implementation(platform("androidx.compose:compose-bom:$composeBomVersion"))

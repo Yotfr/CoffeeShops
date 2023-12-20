@@ -1,8 +1,8 @@
-package ru.yotfr.sevenwindstestapp.domain
+package ru.yotfr.sevenwindstestapp.domain.common
 
 sealed class DataState<out T> {
     class Success<out T>(val data: T) : DataState<T>()
-    class Error<T>(val message: String?) : DataState<T>()
+    class Error<T>(val message: String? = null) : DataState<T>()
     class Loading<T> : DataState<T>()
 }
 
