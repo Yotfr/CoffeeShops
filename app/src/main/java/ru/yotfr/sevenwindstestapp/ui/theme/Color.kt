@@ -29,8 +29,8 @@ val LocalColors = staticCompositionLocalOf {
 
 val backgroundColor = Color(0xFFFFFFFF)
 val surfaceColor = Color(0xFFFAF9F9)
-val brownLightPrimary = Color(0xFF342D1A)
-val brownDarkPrimary = Color(0xFF846340)
+val brownDarkPrimary = Color(0xFF342D1A)
+val brownLightPrimary = Color(0xFF846340)
 val pinkSecondary = Color(0xFFF6E5D1)
 val inactiveColor = Color(0xFFAF9479)
 val onPrimaryColor = Color(0xFFF6E5D1)
