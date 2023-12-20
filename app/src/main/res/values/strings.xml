@@ -7,5 +7,6 @@
     <string name="password">Пароль</string>
     <string name="repeat_password">Повторите пароль</string>
 
+    <string name="authorize">Вход</string>
 
 </resources>
