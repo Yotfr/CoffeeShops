@@ -1,11 +1,37 @@
 package ru.yotfr.sevenwindstestapp.ui.theme
 
+import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 
-val Purple80 = Color(0xFFD0BCFF)
-val PurpleGrey80 = Color(0xFFCCC2DC)
-val Pink80 = Color(0xFFEFB8C8)
+@Immutable
+data class CoffeeColors(
+    val background: Color,
+    val surface: Color,
+    val lightPrimary: Color,
+    val darkPrimary: Color,
+    val secondary: Color,
+    val inactive: Color,
+    val onPrimary: Color
+)
 
-val Purple40 = Color(0xFF6650a4)
-val PurpleGrey40 = Color(0xFF625b71)
-val Pink40 = Color(0xFF7D5260)
+val LocalColors = staticCompositionLocalOf {
+    CoffeeColors(
+        background = Color.Unspecified,
+        surface = Color.Unspecified,
+        lightPrimary = Color.Unspecified,
+        darkPrimary = Color.Unspecified,
+        secondary = Color.Unspecified,
+        inactive = Color.Unspecified,
+        onPrimary = Color.Unspecified
+    )
+}
+
+val backgroundColor = Color(0xFFFFFFFF)
+val surfaceColor = Color(0xFFFAF9F9)
+val brownLightPrimary = Color(0xFF342D1A)
+val brownDarkPrimary = Color(0xFF846340)
+val pinkSecondary = Color(0xFFF6E5D1)
+val inactiveColor = Color(0xFFAF9479)
+val onPrimaryColor = Color(0xFFF6E5D1)
+
