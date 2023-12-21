@@ -35,6 +35,9 @@ fun NavGraphBuilder.mainNavGraph(navController: NavController) {
             MapScreen(
                 navigateToLocationMenuScreen = { locationId ->
                     navController.navigate(MainScreen.Menu.passId(locationId))
+                },
+                navigateBack = {
+                    navController.popBackStack()
                 }
             )
         }
