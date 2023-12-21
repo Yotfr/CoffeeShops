@@ -38,7 +38,7 @@ import ru.yotfr.sevenwindstestapp.R
 import ru.yotfr.sevenwindstestapp.presentation.locationmenu.event.LocationMenuEvent
 import ru.yotfr.sevenwindstestapp.presentation.locationmenu.viewmodel.LocationMenuViewModel
 import ru.yotfr.sevenwindstestapp.presentation.utils.rub
-import ru.yotfr.sevenwindstestapp.ui.theme.CoffeeTheme
+import ru.yotfr.sevenwindstestapp.presentation.theme.CoffeeTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

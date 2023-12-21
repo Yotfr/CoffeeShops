@@ -5,6 +5,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.last
 import kotlinx.coroutines.flow.map
 import ru.yotfr.sevenwindstestapp.domain.common.DataState
@@ -44,7 +45,7 @@ class TokenStorageImpl @Inject constructor(
             val token = dataStore.data
                 .map { preferences ->
                     preferences[PreferencesKeys.TOKEN]
-                }.last()
+                }.first()
             return DataState.Success(
                 data = token?.let {
                     TokenModel(

@@ -27,7 +27,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import ru.yotfr.sevenwindstestapp.R
 import ru.yotfr.sevenwindstestapp.presentation.register.event.RegisterEvent
 import ru.yotfr.sevenwindstestapp.presentation.register.viewmodel.RegisterViewModel
-import ru.yotfr.sevenwindstestapp.ui.theme.CoffeeTheme
+import ru.yotfr.sevenwindstestapp.presentation.theme.CoffeeTheme
 
 
 @OptIn(ExperimentalMaterial3Api::class)

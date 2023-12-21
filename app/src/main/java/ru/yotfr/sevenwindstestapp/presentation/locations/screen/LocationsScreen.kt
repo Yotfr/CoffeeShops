@@ -27,7 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import ru.yotfr.sevenwindstestapp.R
 import ru.yotfr.sevenwindstestapp.presentation.locations.viewmodel.LocationsViewModel
-import ru.yotfr.sevenwindstestapp.ui.theme.CoffeeTheme
+import ru.yotfr.sevenwindstestapp.presentation.theme.CoffeeTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

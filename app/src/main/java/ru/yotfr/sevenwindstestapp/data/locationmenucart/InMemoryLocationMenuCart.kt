@@ -7,9 +7,10 @@ import kotlinx.coroutines.flow.map
 import ru.yotfr.sevenwindstestapp.domain.locationmenucart.LocationMenuCart
 import ru.yotfr.sevenwindstestapp.domain.model.LocationMenuCartItemModel
 import ru.yotfr.sevenwindstestapp.domain.model.LocationMenuModel
+import javax.inject.Inject
 
 // Корзина пользователя для конкретной локации, инжектится как синглтон, реализация in-memory DB
-class InMemoryLocationMenuCart : LocationMenuCart {
+class InMemoryLocationMenuCart @Inject constructor() : LocationMenuCart {
 
     private val cart = MutableStateFlow<Map<Int, List<LocationMenuCartItemModel>>>(emptyMap())
 

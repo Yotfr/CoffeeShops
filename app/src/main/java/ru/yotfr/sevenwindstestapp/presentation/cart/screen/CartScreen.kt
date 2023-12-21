@@ -35,7 +35,7 @@ import ru.yotfr.sevenwindstestapp.R
 import ru.yotfr.sevenwindstestapp.presentation.cart.event.CartEvent
 import ru.yotfr.sevenwindstestapp.presentation.cart.viewmodel.CartViewModel
 import ru.yotfr.sevenwindstestapp.presentation.utils.rub
-import ru.yotfr.sevenwindstestapp.ui.theme.CoffeeTheme
+import ru.yotfr.sevenwindstestapp.presentation.theme.CoffeeTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
