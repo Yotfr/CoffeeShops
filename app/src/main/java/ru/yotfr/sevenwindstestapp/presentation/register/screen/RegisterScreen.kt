@@ -89,7 +89,9 @@ fun RegisterScreen(
     Scaffold(
         topBar = {
             CoffeeAppBar(
-                title = stringResource(id = R.string.register)
+                title = stringResource(id = R.string.register),
+                isTopLevel = true,
+                onNavigationItemClick = {}
             )
         },
         snackbarHost = {

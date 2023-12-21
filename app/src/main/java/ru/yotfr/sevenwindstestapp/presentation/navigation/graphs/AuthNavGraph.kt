@@ -28,6 +28,15 @@ fun NavGraphBuilder.authNavGraph(navController: NavController) {
             AuthorizeScreen(
                 navigateRegisterScreen = {
                     navController.popBackStack()
+                },
+                navigateMainGraph = {
+                    navController.navigate(
+                        Graph.MAIN
+                    ) {
+                        popUpTo(Graph.MAIN) {
+                            inclusive = false
+                        }
+                    }
                 }
             )
         }
