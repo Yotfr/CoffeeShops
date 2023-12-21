@@ -8,6 +8,7 @@ import ru.yotfr.sevenwindstestapp.presentation.cart.screen.CartScreen
 import ru.yotfr.sevenwindstestapp.presentation.locationmenu.screen.LocationMenuScreen
 import ru.yotfr.sevenwindstestapp.presentation.locations.screen.LocationsScreen
 import ru.yotfr.sevenwindstestapp.presentation.map.screen.MapScreen
+import ru.yotfr.sevenwindstestapp.presentation.navigation.screens.AuthScreen
 import ru.yotfr.sevenwindstestapp.presentation.navigation.screens.LOCATION_ID_ARGUMENT_KEY
 import ru.yotfr.sevenwindstestapp.presentation.navigation.screens.MainScreen
 import java.lang.IllegalArgumentException
@@ -26,6 +27,13 @@ fun NavGraphBuilder.mainNavGraph(navController: NavController) {
                 },
                 navigateToLocationMenuScreen = { locationId ->
                     navController.navigate(MainScreen.Menu.passId(locationId))
+                },
+                logout = {
+                    navController.navigate(AuthScreen.Login.route) {
+                        popUpTo(MainScreen.Locations.route) {
+                            inclusive = true
+                        }
+                    }
                 }
             )
         }
@@ -38,6 +46,13 @@ fun NavGraphBuilder.mainNavGraph(navController: NavController) {
                 },
                 navigateBack = {
                     navController.popBackStack()
+                },
+                logout = {
+                    navController.navigate(AuthScreen.Login.route) {
+                        popUpTo(MainScreen.Map.route) {
+                            inclusive = true
+                        }
+                    }
                 }
             )
         }
@@ -48,7 +63,15 @@ fun NavGraphBuilder.mainNavGraph(navController: NavController) {
             throw IllegalArgumentException("Navigated with wrong locationID. SHOULD NOT HAPPEN")
             LocationMenuScreen(
                 locationId = locationId,
-                navigateBack = { navController.popBackStack() }
+                navigateBack = { navController.popBackStack() },
+                navigatePaymentScreen = { navController.navigate(MainScreen.Payment.passId(it)) },
+                logout = {
+                    navController.navigate(AuthScreen.Login.route) {
+                        popUpTo(MainScreen.Menu.route) {
+                            inclusive = true
+                        }
+                    }
+                }
             )
         }
         composable(

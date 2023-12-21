@@ -2,8 +2,8 @@ package ru.yotfr.sevenwindstestapp.domain.usecase
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import ru.yotfr.sevenwindstestapp.domain.common.DataState
-import ru.yotfr.sevenwindstestapp.domain.common.mapType
+import ru.yotfr.sevenwindstestapp.domain.model.DataState
+import ru.yotfr.sevenwindstestapp.domain.model.mapType
 import ru.yotfr.sevenwindstestapp.domain.model.AuthModel
 import ru.yotfr.sevenwindstestapp.domain.repository.AuthRepository
 import javax.inject.Inject

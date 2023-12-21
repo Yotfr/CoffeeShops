@@ -7,8 +7,8 @@ import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
-import ru.yotfr.sevenwindstestapp.domain.common.onError
-import ru.yotfr.sevenwindstestapp.domain.common.onSuccess
+import ru.yotfr.sevenwindstestapp.domain.model.onError
+import ru.yotfr.sevenwindstestapp.domain.model.onSuccess
 import ru.yotfr.sevenwindstestapp.domain.usecase.IsTokenPresentUseCase
 import javax.inject.Inject
 
@@ -21,7 +21,7 @@ class SplashViewModel @Inject constructor(
     val isAuthorized = _isAuthorized.asSharedFlow()
     init {
         viewModelScope.launch {
-            isTokenPresentUseCase().onError {
+            isTokenPresentUseCase().onError { message, cause ->
                 _isAuthorized.emit(false)
             }.onSuccess { auth ->
                 _isAuthorized.emit(auth)

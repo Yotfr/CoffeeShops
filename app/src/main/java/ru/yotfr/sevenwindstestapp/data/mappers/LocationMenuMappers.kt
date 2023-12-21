@@ -7,6 +7,6 @@ fun LocationMenuDTO.mapToLocationMenuModel(): LocationMenuModel =
     LocationMenuModel(
         id = id,
         name = name,
-        imageUrl = imageUrl,
+        imageUrl = imageURL,
         price = price
     )

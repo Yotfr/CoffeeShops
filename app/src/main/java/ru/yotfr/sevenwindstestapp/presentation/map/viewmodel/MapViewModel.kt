@@ -10,11 +10,13 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import ru.yotfr.sevenwindstestapp.domain.common.onError
-import ru.yotfr.sevenwindstestapp.domain.common.onLoading
-import ru.yotfr.sevenwindstestapp.domain.common.onSuccess
+import ru.yotfr.sevenwindstestapp.domain.model.ErrorCause
+import ru.yotfr.sevenwindstestapp.domain.model.onError
+import ru.yotfr.sevenwindstestapp.domain.model.onLoading
+import ru.yotfr.sevenwindstestapp.domain.model.onSuccess
 import ru.yotfr.sevenwindstestapp.domain.usecase.GetAvailableLocationsUseCase
 import ru.yotfr.sevenwindstestapp.domain.usecase.GetCurrentLocationUseCase
+import ru.yotfr.sevenwindstestapp.domain.usecase.LogoutUseCase
 import ru.yotfr.sevenwindstestapp.presentation.map.event.MapEvent
 import ru.yotfr.sevenwindstestapp.presentation.map.event.MapOneTimeEvent
 import ru.yotfr.sevenwindstestapp.presentation.map.state.MapScreenState
@@ -24,7 +26,8 @@ import kotlin.math.roundToInt
 @HiltViewModel
 class MapViewModel @Inject constructor(
     private val getAvailableLocationsUseCase: GetAvailableLocationsUseCase,
-    private val getCurrentLocationUseCase: GetCurrentLocationUseCase
+    private val getCurrentLocationUseCase: GetCurrentLocationUseCase,
+    private val logoutUseCase: LogoutUseCase
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(MapScreenState())
@@ -49,17 +52,23 @@ class MapViewModel @Inject constructor(
                             locations = locations
                         )
                     }
-                }.onError { message ->
+                }.onError { message, cause ->
                     _state.update {
                         it.copy(
                             isLoading = false
                         )
                     }
-                    _event.send(
-                        MapOneTimeEvent.ShowErrorSnackbar(
-                            message = message
+                    if (cause == ErrorCause.Unauthorized) {
+                        _event.send(
+                            MapOneTimeEvent.Logout
                         )
-                    )
+                    } else {
+                        _event.send(
+                            MapOneTimeEvent.ShowErrorSnackbar(
+                                message = message
+                            )
+                        )
+                    }
                 }
             }
         }

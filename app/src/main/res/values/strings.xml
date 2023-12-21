@@ -17,9 +17,7 @@
     <string name="to_payment">Перейти к оплате</string>
 
     <string name="your_order">Ваш заказ</string>
-    <string name="thank_for_order">Время ожидания заказа
-15 минут!
-Спасибо, что выбрали нас!</string>
+    <string name="thank_for_order">Время ожидания заказа 15 минут! Спасибо, что выбрали нас!</string>
     <string name="pay">Оплатить</string>
 
     <string name="something_went_wrong">Что-то пошло не так…</string>

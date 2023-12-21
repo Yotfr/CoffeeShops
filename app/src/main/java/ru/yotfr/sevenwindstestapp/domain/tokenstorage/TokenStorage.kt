@@ -1,7 +1,6 @@
 package ru.yotfr.sevenwindstestapp.domain.tokenstorage
 
-import kotlinx.coroutines.flow.Flow
-import ru.yotfr.sevenwindstestapp.domain.common.DataState
+import ru.yotfr.sevenwindstestapp.domain.model.DataState
 import ru.yotfr.sevenwindstestapp.domain.model.TokenModel
 
 interface TokenStorage {

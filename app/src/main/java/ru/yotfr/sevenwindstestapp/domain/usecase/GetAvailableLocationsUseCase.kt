@@ -1,12 +1,12 @@
 package ru.yotfr.sevenwindstestapp.domain.usecase
 
-import android.util.Log
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import ru.yotfr.sevenwindstestapp.domain.common.DataState
-import ru.yotfr.sevenwindstestapp.domain.common.onError
-import ru.yotfr.sevenwindstestapp.domain.common.onSuccess
+import ru.yotfr.sevenwindstestapp.domain.model.DataState
+import ru.yotfr.sevenwindstestapp.domain.model.onError
+import ru.yotfr.sevenwindstestapp.domain.model.onSuccess
 import ru.yotfr.sevenwindstestapp.domain.locationprovider.LocationProvider
+import ru.yotfr.sevenwindstestapp.domain.model.ErrorCause
 import ru.yotfr.sevenwindstestapp.domain.model.LocationModel
 import ru.yotfr.sevenwindstestapp.domain.repository.LocationRepository
 import ru.yotfr.sevenwindstestapp.domain.tokenstorage.TokenStorage
@@ -20,22 +20,28 @@ class GetAvailableLocationsUseCase @Inject constructor(
 
     operator fun invoke(): Flow<DataState<List<LocationModel>>> = flow {
         emit(DataState.Loading())
-        tokenStorage.getToken().onError {
-            emit(DataState.Error(it))
+        tokenStorage.getToken().onError { message, cause ->
+            emit(DataState.Error(message, cause))
         }.onSuccess { token ->
             if (token == null) {
-                //TODO: Сделать по уму
-                emit(DataState.Error("Unauthorized"))
+                emit(
+                    DataState.Error(
+                        null,
+                        ErrorCause.Unauthorized
+                    )
+                )
             } else {
                 locationRepository.getAvailableLocations(
                     tokenModel = token
-                ).onError {
-                    Log.d("ERRORTEST","Error $it")
-                    emit(DataState.Error(it))
+                ).onError { message, cause ->
+                    emit(
+                        DataState.Error(
+                            message, cause
+                        )
+                    )
                 }.onSuccess { locations ->
-                    Log.d("ERRORTEST","Success $locations")
-                    locationProvider.getCurrentCoordinates().onError {
-                        emit(DataState.Error(it))
+                    locationProvider.getCurrentCoordinates().onError { message, cause ->
+                        emit(DataState.Error(message, cause))
                         emit(DataState.Success(data = locations))
                     }.onSuccess { currentCoordinates ->
                         val locationWithDistances = locations.map {

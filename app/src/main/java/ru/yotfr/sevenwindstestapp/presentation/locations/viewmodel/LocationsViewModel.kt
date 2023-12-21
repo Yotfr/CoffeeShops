@@ -10,17 +10,20 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import ru.yotfr.sevenwindstestapp.domain.common.onError
-import ru.yotfr.sevenwindstestapp.domain.common.onLoading
-import ru.yotfr.sevenwindstestapp.domain.common.onSuccess
+import ru.yotfr.sevenwindstestapp.domain.model.ErrorCause
+import ru.yotfr.sevenwindstestapp.domain.model.onError
+import ru.yotfr.sevenwindstestapp.domain.model.onLoading
+import ru.yotfr.sevenwindstestapp.domain.model.onSuccess
 import ru.yotfr.sevenwindstestapp.domain.usecase.GetAvailableLocationsUseCase
+import ru.yotfr.sevenwindstestapp.domain.usecase.LogoutUseCase
 import ru.yotfr.sevenwindstestapp.presentation.locations.event.LocationOneTimeEvent
 import ru.yotfr.sevenwindstestapp.presentation.locations.state.LocationsScreenState
 import javax.inject.Inject
 
 @HiltViewModel
 class LocationsViewModel @Inject constructor(
-    private val getAvailableLocationsUseCase: GetAvailableLocationsUseCase
+    private val getAvailableLocationsUseCase: GetAvailableLocationsUseCase,
+    private val logoutUseCase: LogoutUseCase
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(LocationsScreenState())
@@ -45,17 +48,23 @@ class LocationsViewModel @Inject constructor(
                             locations = locations
                         )
                     }
-                }.onError { message ->
+                }.onError { message, cause ->
                     _state.update {
                         it.copy(
                             isLoading = false
                         )
                     }
-                    _event.send(
-                        LocationOneTimeEvent.ShowErrorSnackbar(
-                            message = message
+                    if (cause == ErrorCause.Unauthorized) {
+                        _event.send(
+                            LocationOneTimeEvent.Logout
                         )
-                    )
+                    } else {
+                        _event.send(
+                            LocationOneTimeEvent.ShowErrorSnackbar(
+                                message = message
+                            )
+                        )
+                    }
                 }
             }
         }

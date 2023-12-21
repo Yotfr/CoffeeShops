@@ -4,12 +4,12 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import ru.yotfr.sevenwindstestapp.data.locationmenucart.InMemoryLocationMenuCart
+import ru.yotfr.sevenwindstestapp.data.cartmanager.CartManagerImpl
 import ru.yotfr.sevenwindstestapp.data.repository.AuthRepositoryImpl
 import ru.yotfr.sevenwindstestapp.data.repository.LocationMenuRepositoryImpl
 import ru.yotfr.sevenwindstestapp.data.repository.LocationRepositoryImpl
 import ru.yotfr.sevenwindstestapp.data.tokenstorage.TokenStorageImpl
-import ru.yotfr.sevenwindstestapp.domain.locationmenucart.LocationMenuCart
+import ru.yotfr.sevenwindstestapp.domain.cartmanager.CartManager
 import ru.yotfr.sevenwindstestapp.domain.repository.AuthRepository
 import ru.yotfr.sevenwindstestapp.domain.repository.LocationMenuRepository
 import ru.yotfr.sevenwindstestapp.domain.repository.LocationRepository
@@ -46,7 +46,7 @@ interface AppBindsModule {
 
     @Singleton
     @Binds
-    fun bindLocationMenuCart(
-        inMemoryLocationMenuCart: InMemoryLocationMenuCart
-    ): LocationMenuCart
+    fun bindCartManager(
+        cartManagerImpl: CartManagerImpl
+    ): CartManager
 }

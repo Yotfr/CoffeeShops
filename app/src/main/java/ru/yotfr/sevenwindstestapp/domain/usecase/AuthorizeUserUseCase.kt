@@ -2,9 +2,9 @@ package ru.yotfr.sevenwindstestapp.domain.usecase
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import ru.yotfr.sevenwindstestapp.domain.common.DataState
-import ru.yotfr.sevenwindstestapp.domain.common.onError
-import ru.yotfr.sevenwindstestapp.domain.common.onSuccess
+import ru.yotfr.sevenwindstestapp.domain.model.DataState
+import ru.yotfr.sevenwindstestapp.domain.model.onError
+import ru.yotfr.sevenwindstestapp.domain.model.onSuccess
 import ru.yotfr.sevenwindstestapp.domain.model.AuthModel
 import ru.yotfr.sevenwindstestapp.domain.repository.AuthRepository
 import ru.yotfr.sevenwindstestapp.domain.tokenstorage.TokenStorage
@@ -19,10 +19,11 @@ class AuthorizeUserUseCase @Inject constructor(
         emit(DataState.Loading())
         authRepository.authorizeUser(
             authModel = authModel
-        ).onError { message ->
+        ).onError { message, cause ->
             emit(
                 DataState.Error(
-                    message = message
+                    message,
+                    cause
                 )
             )
         }.onSuccess { tokenModel ->

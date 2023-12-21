@@ -1,6 +1,5 @@
 package ru.yotfr.sevenwindstestapp.presentation.map.screen
 
-import android.util.Log
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -43,7 +42,8 @@ import ru.yotfr.sevenwindstestapp.presentation.utils.observeWithLifecycle
 fun MapScreen(
     vm: MapViewModel = hiltViewModel(),
     navigateToLocationMenuScreen: (locationId: Int) -> Unit,
-    navigateBack: () ->  Unit
+    navigateBack: () ->  Unit,
+    logout: () -> Unit
 ) {
 
     val scope = rememberCoroutineScope()
@@ -78,6 +78,10 @@ fun MapScreen(
 
             is MapOneTimeEvent.NavigateLocationMenu -> {
                 navigateToLocationMenuScreen(event.locationId)
+            }
+
+            MapOneTimeEvent.Logout -> {
+                logout()
             }
         }
     }

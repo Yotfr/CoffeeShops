@@ -1,54 +1,87 @@
 package ru.yotfr.sevenwindstestapp.presentation.locationmenu.screen
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CenterAlignedTopAppBar
-import androidx.compose.material3.ElevatedCard
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.pullrefresh.PullRefreshIndicator
+import androidx.compose.material.pullrefresh.pullRefresh
+import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.core.content.ContextCompat
 import androidx.hilt.navigation.compose.hiltViewModel
-import coil.compose.AsyncImage
+import kotlinx.coroutines.launch
 import ru.yotfr.sevenwindstestapp.R
+import ru.yotfr.sevenwindstestapp.presentation.common.CoffeeAppBar
+import ru.yotfr.sevenwindstestapp.presentation.common.CoffeeButton
 import ru.yotfr.sevenwindstestapp.presentation.locationmenu.event.LocationMenuEvent
+import ru.yotfr.sevenwindstestapp.presentation.locationmenu.event.LocationMenuOneTimeEvent
 import ru.yotfr.sevenwindstestapp.presentation.locationmenu.viewmodel.LocationMenuViewModel
+import ru.yotfr.sevenwindstestapp.presentation.utils.observeWithLifecycle
 import ru.yotfr.sevenwindstestapp.presentation.utils.rub
-import ru.yotfr.sevenwindstestapp.presentation.theme.CoffeeTheme
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
 @Composable
 fun LocationMenuScreen(
     vm: LocationMenuViewModel = hiltViewModel(),
     locationId: Int,
-    navigateBack: () -> Unit
+    navigateBack: () -> Unit,
+    navigatePaymentScreen: (locationId: Int) -> Unit,
+    logout: () -> Unit
 ) {
 
+    val scope = rememberCoroutineScope()
+    val snackbarHostState = remember { SnackbarHostState() }
+    val context = LocalContext.current
     val state by vm.state.collectAsState()
+    val pullRefreshState = rememberPullRefreshState(
+        refreshing = state.isLoading,
+        onRefresh = {
+            vm.onEvent(LocationMenuEvent.PullRefresh)
+        }
+    )
+    vm.event.observeWithLifecycle { event ->
+        when(event) {
+            is LocationMenuOneTimeEvent.ShowErrorSnackbar -> {
+                scope.launch {
+                    snackbarHostState.showSnackbar(
+                        event.message ?: ContextCompat.getString(
+                            context,
+                            R.string.something_went_wrong
+                        )
+                    )
+                }
+            }
+
+            LocationMenuOneTimeEvent.Logout -> {
+                logout()
+            }
+        }
+    }
 
     LaunchedEffect(Unit) {
         vm.onEvent(
@@ -58,125 +91,84 @@ fun LocationMenuScreen(
         )
     }
 
-    Scaffold(topBar = {
-        CenterAlignedTopAppBar(
-            title = {
-                Text(
-                    text = stringResource(id = R.string.menu),
-                    style = CoffeeTheme.typography.labelBold,
-                    color = CoffeeTheme.colors.lightPrimary
-                )
-            }, colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                containerColor = CoffeeTheme.colors.surface
+    Scaffold(
+        topBar = {
+            CoffeeAppBar(
+                title = stringResource(id = R.string.menu),
+                isTopLevel = false,
+                onNavigationItemClick = navigateBack
             )
-        )
-    }) {
+        },
+        snackbarHost = {
+            SnackbarHost(hostState = snackbarHostState)
+        }
+    ) {
         Box(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(it)
                 .padding(
-                    start = 10.dp, end = 16.dp
+                    horizontal = 16.dp
                 )
+                .pullRefresh(pullRefreshState)
         ) {
             LazyVerticalGrid(
-                columns = GridCells.Fixed(2)
+                columns = GridCells.Adaptive(130.dp),
+                horizontalArrangement = Arrangement.spacedBy(13.dp),
+                verticalArrangement = Arrangement.spacedBy(13.dp)
             ) {
+                item(span = { GridItemSpan(maxLineSpan) }) {
+                    Modifier.height(16.dp)
+                }
                 items(state.locationMenu) { locationMenuItem ->
-                    ElevatedCard(
-                        modifier = Modifier.fillMaxWidth(),
-                        shape = CoffeeTheme.shape.smallRounded,
-                        colors = CardDefaults.elevatedCardColors(
-                            containerColor = CoffeeTheme.colors.background
-                        ),
-                        elevation = CardDefaults.cardElevation(2.dp)
-                    ) {
-                        AsyncImage(
-                            model = locationMenuItem.item.imageUrl, contentDescription = null
-                        )
-                        Column(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(start = 11.dp, bottom = 11.dp, top = 10.dp, end = 5.dp)
-                        ) {
-                            Text(
-                                text = locationMenuItem.item.name,
-                                style = CoffeeTheme.typography.body,
-                                color = CoffeeTheme.colors.inactive
-                            )
-                            Spacer(modifier = Modifier.height(9.dp))
-                            Row(
-                                modifier = Modifier.fillMaxWidth(),
-                                horizontalArrangement = Arrangement.SpaceBetween
-                            ) {
-                                Text(
-                                    text = locationMenuItem.item.price.rub(),
-                                    style = CoffeeTheme.typography.captionBold,
-                                    color = CoffeeTheme.colors.lightPrimary
+                    MenuItem(
+                        url = locationMenuItem.menuModel.imageUrl ?: "",
+                        name = locationMenuItem.menuModel.name ?: "",
+                        price = locationMenuItem.menuModel.price.rub(),
+                        onDecrease = {
+                            vm.onEvent(
+                                LocationMenuEvent.DecreaseItemCartCount(
+                                    item = locationMenuItem,
+                                    locationId = locationId
                                 )
-                                Row(
-                                    modifier = Modifier.fillMaxWidth()
-                                ) {
-                                    IconButton(
-                                        onClick = {
-                                            vm.onEvent(
-                                                LocationMenuEvent.DecreaseItemCartCount(
-                                                    item = locationMenuItem
-                                                )
-                                            )
-                                        },
-                                        modifier = Modifier.weight(1f)
-                                    ) {
-                                        Icon(
-                                            painter = painterResource(id = R.drawable.ic_minus),
-                                            contentDescription = null
-                                        )
-                                    }
-                                    Text(
-                                        text = locationMenuItem.count.toString(),
-                                        style = CoffeeTheme.typography.captionRegular,
-                                        color = CoffeeTheme.colors.lightPrimary,
-                                        modifier = Modifier.weight(1f)
-                                    )
-                                    IconButton(
-                                        onClick = {
-                                            vm.onEvent(
-                                                LocationMenuEvent.IncreaseItemCartCount(
-                                                    item = locationMenuItem
-                                                )
-                                            )
-                                        },
-                                        modifier = Modifier.weight(1f)
-                                    ) {
-                                        Icon(
-                                            painter = painterResource(id = R.drawable.ic_plus),
-                                            contentDescription = null
-                                        )
-                                    }
-                                }
-                            }
-                        }
-                    }
+                            )
+                        },
+                        onIncrease = {
+                            vm.onEvent(
+                                LocationMenuEvent.IncreaseItemCartCount(
+                                    item = locationMenuItem,
+                                    locationId = locationId
+                                )
+                            )
+                        },
+                        count = locationMenuItem.count.toString()
+                    )
+                }
+                item(span = { GridItemSpan(maxLineSpan) }) {
+                    Modifier.height(90.dp)
                 }
             }
-            Button(
+            Column(
                 modifier = Modifier
+                    .fillMaxWidth()
                     .align(Alignment.BottomCenter)
-                    .padding(vertical = 13.dp),
-                onClick = {
-                    //TODO: к оплате
-                },
-                shape = CoffeeTheme.shape.largeRounded,
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = CoffeeTheme.colors.darkPrimary
-                )
             ) {
-                Text(
+                CoffeeButton(
+                    onClick = {
+                        Log.d("CLICK","CLICKED")
+                        navigatePaymentScreen(locationId)
+                              },
                     text = stringResource(id = R.string.to_payment),
-                    style = CoffeeTheme.typography.labelBold,
-                    color = CoffeeTheme.colors.onPrimary
+                    modifier = Modifier
+                        .fillMaxWidth()
                 )
+                Spacer(modifier = Modifier.height(20.dp))
             }
+            PullRefreshIndicator(
+                refreshing = state.isLoading,
+                state = pullRefreshState,
+                modifier = Modifier.align(Alignment.TopCenter)
+            )
         }
     }
 }

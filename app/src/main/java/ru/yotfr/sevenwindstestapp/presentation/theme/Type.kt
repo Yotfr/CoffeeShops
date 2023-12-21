@@ -73,6 +73,15 @@ data class CoffeeTypography(
         platformStyle = PlatformTextStyle(
             includeFontPadding = false
         )
+    ),
+    val increment: TextStyle = TextStyle(
+        fontSize = 16.sp,
+        lineHeight = 19.09.sp,
+        fontWeight = FontWeight(700),
+        fontFamily = sfDisplay,
+        platformStyle = PlatformTextStyle(
+            includeFontPadding = false
+        )
     )
 )
 

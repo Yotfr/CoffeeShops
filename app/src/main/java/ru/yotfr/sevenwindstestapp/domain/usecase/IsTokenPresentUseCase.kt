@@ -1,7 +1,7 @@
 package ru.yotfr.sevenwindstestapp.domain.usecase
 
-import ru.yotfr.sevenwindstestapp.domain.common.DataState
-import ru.yotfr.sevenwindstestapp.domain.common.mapType
+import ru.yotfr.sevenwindstestapp.domain.model.DataState
+import ru.yotfr.sevenwindstestapp.domain.model.mapType
 import ru.yotfr.sevenwindstestapp.domain.tokenstorage.TokenStorage
 import javax.inject.Inject
 

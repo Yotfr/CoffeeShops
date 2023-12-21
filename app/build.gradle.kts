@@ -52,7 +52,6 @@ android {
 }
 
 dependencies {
-    val roomVersion = "2.6.1"
     val viewModelKTXVersion = "2.6.2"
     val coroutinesVersion = "1.7.3"
     val navVersion = "2.7.6"
@@ -83,7 +82,6 @@ dependencies {
 
     // KTX
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$viewModelKTXVersion")
-    implementation("androidx.room:room-ktx:$roomVersion")
     implementation("androidx.core:core-ktx:$coreKTXVersion")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleRuntimeKTXVersion")
 

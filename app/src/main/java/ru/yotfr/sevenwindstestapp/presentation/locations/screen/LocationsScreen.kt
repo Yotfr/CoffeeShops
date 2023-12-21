@@ -40,7 +40,8 @@ import ru.yotfr.sevenwindstestapp.presentation.utils.observeWithLifecycle
 fun LocationsScreen(
     vm: LocationsViewModel = hiltViewModel(),
     navigateMapScreen: () -> Unit,
-    navigateToLocationMenuScreen: (locationId: Int) -> Unit
+    navigateToLocationMenuScreen: (locationId: Int) -> Unit,
+    logout: () -> Unit
 ) {
 
     val scope = rememberCoroutineScope()
@@ -58,6 +59,10 @@ fun LocationsScreen(
                         )
                     )
                 }
+            }
+
+            LocationOneTimeEvent.Logout -> {
+                logout()
             }
         }
     }
@@ -95,7 +100,7 @@ fun LocationsScreen(
                         onClick = { navigateToLocationMenuScreen(location.id) }
                     )
                 }
-                item { Spacer(modifier = Modifier.height(70.dp)) }
+                item { Spacer(modifier = Modifier.height(90.dp)) }
             }
             Column(
                 modifier = Modifier

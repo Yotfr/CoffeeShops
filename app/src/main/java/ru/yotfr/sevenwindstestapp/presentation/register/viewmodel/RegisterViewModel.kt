@@ -10,9 +10,9 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import ru.yotfr.sevenwindstestapp.domain.common.onError
-import ru.yotfr.sevenwindstestapp.domain.common.onLoading
-import ru.yotfr.sevenwindstestapp.domain.common.onSuccess
+import ru.yotfr.sevenwindstestapp.domain.model.onError
+import ru.yotfr.sevenwindstestapp.domain.model.onLoading
+import ru.yotfr.sevenwindstestapp.domain.model.onSuccess
 import ru.yotfr.sevenwindstestapp.domain.model.AuthModel
 import ru.yotfr.sevenwindstestapp.domain.usecase.RegisterUserUseCase
 import ru.yotfr.sevenwindstestapp.presentation.register.event.RegisterEvent
@@ -102,7 +102,7 @@ class RegisterViewModel @Inject constructor(
                                         isLoading = true
                                     )
                                 }
-                            }.onError { message ->
+                            }.onError { message, cause ->
                                 _state.update {
                                     it.copy(
                                         isLoading = false

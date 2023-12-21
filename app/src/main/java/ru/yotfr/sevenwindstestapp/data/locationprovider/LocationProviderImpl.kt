@@ -8,9 +8,10 @@ import android.util.Log
 import androidx.core.content.ContextCompat
 import com.google.android.gms.location.FusedLocationProviderClient
 import kotlinx.coroutines.suspendCancellableCoroutine
-import ru.yotfr.sevenwindstestapp.domain.common.DataState
+import ru.yotfr.sevenwindstestapp.domain.model.DataState
 import ru.yotfr.sevenwindstestapp.domain.locationprovider.LocationProvider
 import ru.yotfr.sevenwindstestapp.domain.model.CoordinatesModel
+import ru.yotfr.sevenwindstestapp.domain.model.ErrorCause
 import javax.inject.Inject
 import kotlin.coroutines.resume
 
@@ -36,7 +37,8 @@ class LocationProviderImpl @Inject constructor(
             Log.e("LOCATION_PROVIDER_IMPL", "Error getting location, permissions not granted")
             //TODO: Сделать по уму
             return DataState.Error(
-                "Предоставьте разрешение на использование карт"
+                null,
+                ErrorCause.Unknown
             )
         }
         return suspendCancellableCoroutine { continuation ->
@@ -54,7 +56,8 @@ class LocationProviderImpl @Inject constructor(
                     } else {
                         continuation.resume(
                             DataState.Error(
-                                message = null
+                                null,
+                                ErrorCause.Unknown
                             )
                         )
                     }
@@ -73,7 +76,8 @@ class LocationProviderImpl @Inject constructor(
                 addOnFailureListener {
                     continuation.resume(
                         DataState.Error(
-                            message = null
+                            null,
+                            ErrorCause.Unknown
                         )
                     )
                 }
