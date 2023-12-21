@@ -1,5 +1,6 @@
 package ru.yotfr.sevenwindstestapp.domain.usecase
 
+import android.util.Log
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import ru.yotfr.sevenwindstestapp.domain.common.DataState
@@ -29,8 +30,10 @@ class GetAvailableLocationsUseCase @Inject constructor(
                 locationRepository.getAvailableLocations(
                     tokenModel = token
                 ).onError {
+                    Log.d("ERRORTEST","Error $it")
                     emit(DataState.Error(it))
                 }.onSuccess { locations ->
+                    Log.d("ERRORTEST","Success $locations")
                     locationProvider.getCurrentCoordinates().onError {
                         emit(DataState.Error(it))
                         emit(DataState.Success(data = locations))

@@ -34,7 +34,7 @@ fun NavGraphBuilder.authNavGraph(navController: NavController) {
                         Graph.MAIN
                     ) {
                         popUpTo(Graph.MAIN) {
-                            inclusive = false
+                            inclusive = true
                         }
                     }
                 }

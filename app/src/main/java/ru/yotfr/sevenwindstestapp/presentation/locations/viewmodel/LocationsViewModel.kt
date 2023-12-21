@@ -1,5 +1,6 @@
 package ru.yotfr.sevenwindstestapp.presentation.locations.viewmodel
 
+import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel

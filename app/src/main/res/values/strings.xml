@@ -28,4 +28,12 @@
     <string name="already_registered">Уже зарегистрированы?</string>
     <string name="enter">Войти</string>
 
+    <string name="permission_required">Разрешение рекомендуется</string>
+    <string name="grant_permission">Дать разрешение</string>
+    <string name="OK">OK</string>
+
+    <string name="location_declined_first">Кажется, вы навсегда отклонили разрешение на отслеживание местоположения. </string>
+    <string name="location_declined_second">Вы можете перейти в настройки приложения, чтобы предоставить его.</string>
+    <string name="location_needed_first">Этому приложению необходим доступ к местоположению, </string>
+    <string name="location_needed_second">чтобы вы смогли увидеть кофейни поблизости на карте.</string>
 </resources>

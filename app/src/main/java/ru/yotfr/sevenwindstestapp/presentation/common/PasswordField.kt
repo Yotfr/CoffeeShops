@@ -43,7 +43,8 @@ fun PasswordField(
             modifier = Modifier.fillMaxWidth(),
             value = password,
             onValueChange = onPasswordChanged,
-            singleLine = true
+            singleLine = true,
+            visualTransformation = PasswordVisualTransformation()
         ) { innerTextField ->
             TextFieldDefaults.OutlinedTextFieldDecorationBox(
                 value = password,

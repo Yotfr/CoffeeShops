@@ -1,4 +1,4 @@
-package ru.yotfr.sevenwindstestapp
+package ru.yotfr.sevenwindstestapp.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

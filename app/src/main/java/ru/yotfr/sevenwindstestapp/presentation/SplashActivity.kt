@@ -1,4 +1,4 @@
-package ru.yotfr.sevenwindstestapp
+package ru.yotfr.sevenwindstestapp.presentation
 
 import android.content.Intent
 import android.os.Bundle
