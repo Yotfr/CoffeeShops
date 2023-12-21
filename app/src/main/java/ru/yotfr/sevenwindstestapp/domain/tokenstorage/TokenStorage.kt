@@ -8,5 +8,5 @@ interface TokenStorage {
 
     suspend fun updateToken(tokenModel: TokenModel): DataState<Unit>
     suspend fun dropToken(): DataState<Unit>
-    suspend fun getToken(): Flow<DataState<TokenModel?>>
+    suspend fun getToken(): DataState<TokenModel?>
 }

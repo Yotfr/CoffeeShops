@@ -68,6 +68,10 @@ dependencies {
     val retrofitVersion = "2.9.0"
     val okHttpVersion = "4.12.0"
     val dataStoreVersion = "1.0.0"
+    val fusedLocationProviderVersion = "21.0.1"
+
+    // Fused location provider
+    implementation("com.google.android.gms:play-services-location:$fusedLocationProviderVersion")
 
     // KTX
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$viewModelKTXVersion")

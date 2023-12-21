@@ -5,8 +5,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.last
 import kotlinx.coroutines.flow.map
 import ru.yotfr.sevenwindstestapp.domain.common.DataState
 import ru.yotfr.sevenwindstestapp.domain.model.TokenModel
@@ -40,21 +39,22 @@ class TokenStorageImpl @Inject constructor(
         }
     }
 
-    override suspend fun getToken(): Flow<DataState<TokenModel?>> {
+    override suspend fun getToken(): DataState<TokenModel?> {
         return try {
-            val tokenState = dataStore.data
+            val token = dataStore.data
                 .map { preferences ->
-                    val token = preferences[PreferencesKeys.TOKEN]
-                    DataState.Success(
-                        data = token?.let {
-                            TokenModel(it)
-                        }
+                    preferences[PreferencesKeys.TOKEN]
+                }.last()
+            return DataState.Success(
+                data = token?.let {
+                    TokenModel(
+                        token = it
                     )
                 }
-            return tokenState
+            )
         } catch (e: Exception) {
             Log.e("TOKEN_STORAGE", "Error get token, eMessage: ${e.message}")
-            flow { DataState.Error<DataState<TokenModel?>>("Что-то пошло не так...") }
+            DataState.Error("Что-то пошло не так...")
         }
     }
 

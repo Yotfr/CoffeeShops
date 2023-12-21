@@ -8,6 +8,7 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.yotfr.sevenwindstestapp.data.datasource.remote.api.CoffeeApi
+import ru.yotfr.sevenwindstestapp.data.datasource.remote.utils.AuthHeaderProvider
 import javax.inject.Singleton
 
 @Module
@@ -22,7 +23,7 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    internal fun provideRetrofit(
+    fun provideRetrofit(
         okHttpClient: OkHttpClient
     ): Retrofit {
         return Retrofit.Builder()
@@ -34,9 +35,15 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    internal fun provideCoffeeApi(
+    fun provideCoffeeApi(
         retrofit: Retrofit
     ): CoffeeApi {
         return retrofit.create(CoffeeApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideAuthHeaderProvider(): AuthHeaderProvider {
+        return AuthHeaderProvider()
     }
 }
