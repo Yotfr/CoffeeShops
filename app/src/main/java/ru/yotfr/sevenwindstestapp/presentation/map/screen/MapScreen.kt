@@ -11,7 +11,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
@@ -26,15 +25,10 @@ import ru.yotfr.sevenwindstestapp.R
 import ru.yotfr.sevenwindstestapp.presentation.map.viewmodel.MapViewModel
 import ru.yotfr.sevenwindstestapp.presentation.utils.OnStartOnStopEffect
 
-@Preview
-@Composable
-fun MapScreenTest() {
-    MapScreen()
-}
-
 @Composable
 fun MapScreen(
-    vm: MapViewModel = hiltViewModel()
+    vm: MapViewModel = hiltViewModel(),
+    navigateToLocationMenuScreen: (locationId: Int) -> Unit
 ) {
 
     val context = LocalContext.current

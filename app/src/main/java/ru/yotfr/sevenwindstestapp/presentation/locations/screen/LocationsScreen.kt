@@ -32,7 +32,9 @@ import ru.yotfr.sevenwindstestapp.ui.theme.CoffeeTheme
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LocationsScreen(
-    vm: LocationsViewModel = hiltViewModel()
+    vm: LocationsViewModel = hiltViewModel(),
+    navigateMapScreen: () -> Unit,
+    navigateToLocationMenuScreen: (locationId: Int) -> Unit
 ) {
 
     val state by vm.state.collectAsState()

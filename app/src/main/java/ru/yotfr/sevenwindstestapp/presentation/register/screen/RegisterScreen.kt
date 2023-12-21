@@ -33,7 +33,8 @@ import ru.yotfr.sevenwindstestapp.ui.theme.CoffeeTheme
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RegisterScreen(
-    vm: RegisterViewModel = hiltViewModel()
+    vm: RegisterViewModel = hiltViewModel(),
+    navigateAuthorizeScreen: () -> Unit
 ) {
 
     val state by vm.state.collectAsState()

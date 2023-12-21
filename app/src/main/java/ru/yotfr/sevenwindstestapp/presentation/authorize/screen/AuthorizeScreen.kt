@@ -32,7 +32,8 @@ import ru.yotfr.sevenwindstestapp.ui.theme.CoffeeTheme
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AuthorizeScreen(
-    vm: AuthorizeViewModel = hiltViewModel()
+    vm: AuthorizeViewModel = hiltViewModel(),
+    navigateRegisterScreen: () -> Unit
 ) {
 
     val state by vm.state.collectAsState()

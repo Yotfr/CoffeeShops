@@ -41,7 +41,8 @@ import ru.yotfr.sevenwindstestapp.ui.theme.CoffeeTheme
 @Composable
 fun CartScreen(
     vm: CartViewModel = hiltViewModel(),
-    locationId: Int
+    locationId: Int,
+    navigateBack: () -> Unit
 ) {
     val state by vm.state.collectAsState()
 
