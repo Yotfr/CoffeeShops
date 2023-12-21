@@ -9,4 +9,7 @@
 
     <string name="authorize">Вход</string>
 
+    <string name="nearest_shops">Ближайшие кофейни</string>
+    <string name="on_map">На карте</string>
+
 </resources>
