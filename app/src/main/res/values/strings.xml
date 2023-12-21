@@ -21,4 +21,11 @@
 Спасибо, что выбрали нас!</string>
     <string name="pay">Оплатить</string>
 
+    <string name="something_went_wrong">Что-то пошло не так…</string>
+    <string name="field_empty">Поле не может быть пустым</string>
+    <string name="passwords_not_match">Парооли не совпадают</string>
+
+    <string name="already_registered">Уже зарегистрированы?</string>
+    <string name="enter">Войти</string>
+
 </resources>

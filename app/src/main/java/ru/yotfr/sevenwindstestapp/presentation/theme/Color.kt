@@ -12,7 +12,9 @@ data class CoffeeColors(
     val darkPrimary: Color,
     val secondary: Color,
     val inactive: Color,
-    val onPrimary: Color
+    val onPrimary: Color,
+    val gray: Color,
+    val error: Color
 )
 
 val LocalColors = staticCompositionLocalOf {
@@ -23,7 +25,9 @@ val LocalColors = staticCompositionLocalOf {
         darkPrimary = Color.Unspecified,
         secondary = Color.Unspecified,
         inactive = Color.Unspecified,
-        onPrimary = Color.Unspecified
+        onPrimary = Color.Unspecified,
+        gray = Color.Unspecified,
+        error = Color.Unspecified
     )
 }
 
@@ -34,4 +38,5 @@ val brownLightPrimary = Color(0xFF846340)
 val pinkSecondary = Color(0xFFF6E5D1)
 val inactiveColor = Color(0xFFAF9479)
 val onPrimaryColor = Color(0xFFF6E5D1)
+val grayColor = Color(0xFFC2C2C2)
 

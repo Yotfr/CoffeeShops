@@ -2,6 +2,7 @@ package ru.yotfr.sevenwindstestapp.presentation.theme
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.staticCompositionLocalOf
+import androidx.compose.ui.text.PlatformTextStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -23,37 +24,55 @@ data class CoffeeTypography(
         fontSize = 18.sp,
         lineHeight = 21.48.sp,
         fontWeight = FontWeight(700),
-        fontFamily = sfDisplay
+        fontFamily = sfDisplay,
+        platformStyle = PlatformTextStyle(
+            includeFontPadding = false
+        )
     ),
     val body: TextStyle = TextStyle(
         fontSize = 15.sp,
         lineHeight = 17.9.sp,
         fontWeight = FontWeight(400),
-        fontFamily = sfDisplay
+        fontFamily = sfDisplay,
+        platformStyle = PlatformTextStyle(
+            includeFontPadding = false
+        )
     ),
     val labelRegular: TextStyle = TextStyle(
         fontSize = 18.sp,
         lineHeight = 21.48.sp,
         fontWeight = FontWeight(400),
-        fontFamily = sfDisplay
+        fontFamily = sfDisplay,
+        platformStyle = PlatformTextStyle(
+            includeFontPadding = false
+        )
     ),
     val captionRegular: TextStyle = TextStyle(
         fontSize = 14.sp,
         lineHeight = 16.71.sp,
         fontWeight = FontWeight(400),
-        fontFamily = sfDisplay
+        fontFamily = sfDisplay,
+        platformStyle = PlatformTextStyle(
+            includeFontPadding = false
+        )
     ),
     val captionBold: TextStyle = TextStyle(
         fontSize = 14.sp,
         lineHeight = 16.71.sp,
         fontWeight = FontWeight(700),
-        fontFamily = sfDisplay
+        fontFamily = sfDisplay,
+        platformStyle = PlatformTextStyle(
+            includeFontPadding = false
+        )
     ),
     val title: TextStyle = TextStyle(
         fontSize = 24.sp,
         lineHeight = 28.64.sp,
         fontWeight = FontWeight(500),
-        fontFamily = sfDisplay
+        fontFamily = sfDisplay,
+        platformStyle = PlatformTextStyle(
+            includeFontPadding = false
+        )
     )
 )
 
