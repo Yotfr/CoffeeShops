@@ -69,6 +69,10 @@ dependencies {
     val okHttpVersion = "4.12.0"
     val dataStoreVersion = "1.0.0"
     val fusedLocationProviderVersion = "21.0.1"
+    val yandexMapKitVersion = "4.4.0-lite"
+
+    // Yandex map kit
+    implementation("com.yandex.android:maps.mobile:$yandexMapKitVersion")
 
     // Fused location provider
     implementation("com.google.android.gms:play-services-location:$fusedLocationProviderVersion")
