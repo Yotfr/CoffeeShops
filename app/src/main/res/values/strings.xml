@@ -12,4 +12,7 @@
     <string name="nearest_shops">Ближайшие кофейни</string>
     <string name="on_map">На карте</string>
 
+    <string name="menu">Меню</string>
+    <string name="to_payment">Перейти к оплате</string>
+
 </resources>

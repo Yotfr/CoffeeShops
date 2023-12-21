@@ -70,6 +70,10 @@ dependencies {
     val dataStoreVersion = "1.0.0"
     val fusedLocationProviderVersion = "21.0.1"
     val yandexMapKitVersion = "4.4.0-lite"
+    val coilVersion = "2.5.0"
+
+    // Coil
+    implementation("io.coil-kt:coil-compose:$coilVersion")
 
     // Yandex map kit
     implementation("com.yandex.android:maps.mobile:$yandexMapKitVersion")
