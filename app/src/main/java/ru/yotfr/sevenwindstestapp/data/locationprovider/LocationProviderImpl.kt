@@ -4,7 +4,6 @@ import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
 import android.location.LocationManager
-import android.util.Log
 import androidx.core.content.ContextCompat
 import com.google.android.gms.location.FusedLocationProviderClient
 import kotlinx.coroutines.suspendCancellableCoroutine
@@ -34,8 +33,6 @@ class LocationProviderImpl @Inject constructor(
         val isGpsEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER) ||
                 locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
         if (!hasAccessFineLocationPermission || !hasAccessCoarseLocationPermission || !isGpsEnabled) {
-            Log.e("LOCATION_PROVIDER_IMPL", "Error getting location, permissions not granted")
-            //TODO: Сделать по уму
             return DataState.Error(
                 null,
                 ErrorCause.Unknown
